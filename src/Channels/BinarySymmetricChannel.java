@@ -16,23 +16,31 @@ public class BinarySymmetricChannel implements IChannel<BinaryData> {
     @Override
     public BinaryData simulateTransmission(BinaryData data) {
 
-        for ( int i = 0; i < data.size; i++ ) {
+        for ( int i = 0; i < data.getSize(); i++ ) {
             if (rand.nextDouble() <= crossoverProbability) {
-                data.bits.flip(i);
+                data.getData().flip(i);
             }
         }
 
         return data;
     }
 
+    public double getCrossoverProbability() {
+        return crossoverProbability;
+    }
+
+    public void setCrossoverProbability(double crossoverProbability) {
+        this.crossoverProbability = crossoverProbability;
+    }
+
     @Override
     public String getInputDataType() {
-        return "Data.BinaryData";
+        return BinaryData.class.getSimpleName();
     }
 
     @Override
     public String getOutputDataType() {
-        return "Data.BinaryData";
+        return BinaryData.class.getSimpleName();
     }
 
     @Override

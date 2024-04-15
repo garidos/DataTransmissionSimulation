@@ -3,8 +3,20 @@ package Data;
 import java.util.BitSet;
 
 public class BinaryData implements IData{
-    public BitSet bits = new BitSet();
-    public int size = 0;
+    private BitSet bits = new BitSet();
+    private int size = 0;
+
+    public BitSet getData() {
+        return bits;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 
     @Override
     public String toString() {
