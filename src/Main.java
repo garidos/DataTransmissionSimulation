@@ -59,17 +59,31 @@ public class Main {
         BufferedReader reader2 = new BufferedReader(new FileReader(OUTPUT_FILE_NAME));
         BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE_NAME));
 
+        double[] avg = new double[(int)(LIMIT/STEP)];
+
         for (int i = 0; i < ITERATIONS; i++) {
             for (int j = 0; j < LIMIT / STEP; j++ ) {
                 String l1 = reader1.readLine();
                 String l2 = reader2.readLine();
-                if ( j == 0 ) continue;
                 int cnt = compare(l1, l2);
-                writer.write(STEP*j + "," + (double)Math.min(l1.length(), cnt) / TEXT_LEN);
-                writer.newLine();
-                writer.flush();
+                avg[j] += (double)Math.min(l1.length(), cnt) / TEXT_LEN;
             }
         }
+
+        for (int i = 0; i < avg.length; i++) {
+            avg[i] /= ITERATIONS;
+        }
+
+        for ( double p = 0; p < LIMIT; p += STEP ) {
+            writer.write(p + (p>=LIMIT-STEP?"":","));
+        }
+
+        writer.newLine();
+
+        for ( int i = 0; i < avg.length; i++ ) {
+            writer.write(avg[i] + (i==avg.length-1?"":","));
+        }
+
         reader2.close();
         reader1.close();
         writer.close();

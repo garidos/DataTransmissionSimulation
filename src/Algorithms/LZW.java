@@ -34,7 +34,9 @@ public class LZW {
                     }
                 }
                 index++;
-                dictionary.put(kw, size++);
+                if ( size < DICTIONARY_SIZE ) {
+                    dictionary.put(kw, size++);
+                }
                 k = Character.toString(w);
             }
 
@@ -88,11 +90,15 @@ public class LZW {
             if (dictionary.containsKey(code)) {
                 kw = dictionary.get(code);
                 text.append(kw);
-                dictionary.put(size++, k + (kw.isEmpty()?"":kw.charAt(0)));
+                if ( size < DICTIONARY_SIZE ) {
+                    dictionary.put(size++, k + (kw.isEmpty()?"":kw.charAt(0)));
+                }
             } else {
                 kw = k + (k.isEmpty()?"":k.charAt(0));
                 text.append(kw);
-                dictionary.put(size++, kw);
+                if ( size < DICTIONARY_SIZE ) {
+                    dictionary.put(size++, kw);
+                }
             }
             k = kw;
         }

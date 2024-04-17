@@ -1,29 +1,28 @@
 import matplotlib.pyplot as plt
-import numpy as np
 import os
 
 xpoints = []
 ypoints = []
 
 with open("data.txt", 'r') as file:
-    while 1:
-        line = file.readline()
-        if line == "":
-            break
-        line = line.strip()
-        vals = line.split(',')
-        xpoints.append(float(vals[0]))
-        ypoints.append(float(vals[1]))
+    line = file.readline()
+    line = line.strip()
+    line = line.split(',')
+    for l in line:
+        xpoints.append(float(l))
+    line = file.readline()
+    line = line.strip()
+    line = line.split(',')
+    for l in line:
+        ypoints.append(float(l))
 
 
-x = np.array(xpoints)
-y = np.array(ypoints)
+os.remove("data.txt")
 
-os.remove("./data.txt")
 
-plt.plot(x, y, '.k')
+plt.plot(xpoints, ypoints)
 plt.xlabel("p")
-plt.ylabel("Pe")
+plt.ylabel("Ce")
 plt.title("Zavisnost broja gresaka u prenesenom tekstu \n od vjerovatnoce greske u kanalu")
 plt.grid(True)
 
